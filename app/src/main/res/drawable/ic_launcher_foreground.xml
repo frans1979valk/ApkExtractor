@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Document body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,26h28a4,4,0,0,1,4,4v52a4,4,0,0,1,-4,4h-28a4,4,0,0,1,-4,-4v-52a4,4,0,0,1,4,-4z" />
+    <!-- Up arrow (extraction symbol) -->
+    <path
+        android:fillColor="#00897B"
+        android:pathData="M50,38l-9,12h5v18h8v-18h5z" />
+</vector>
