@@ -69,4 +69,5 @@
     <string name="open_folder">Open folder</string>
     <string name="folder_not_accessible">Folder not accessible. Please select a new folder.</string>
     <string name="select_folder_first">Please select a save folder in Settings first</string>
+    <string name="open_folder_error">Cannot open folder. Please use your Files app.</string>
 </resources>

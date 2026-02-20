@@ -69,4 +69,5 @@
     <string name="open_folder">Abrir carpeta</string>
     <string name="folder_not_accessible">Carpeta no accesible. Por favor, selecciona una nueva carpeta.</string>
     <string name="select_folder_first">Por favor, selecciona primero una carpeta de guardado en Ajustes</string>
+    <string name="open_folder_error">No se puede abrir la carpeta. Por favor, usa tu aplicación de Archivos.</string>
 </resources>

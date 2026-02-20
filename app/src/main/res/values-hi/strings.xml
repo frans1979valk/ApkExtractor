@@ -69,4 +69,5 @@
     <string name="open_folder">फ़ोल्डर खोलें</string>
     <string name="folder_not_accessible">फ़ोल्डर एक्सेस नहीं हो सकता। कृपया नया फ़ोल्डर चुनें।</string>
     <string name="select_folder_first">कृपया पहले सेटिंग्स में एक सेव फ़ोल्डर चुनें</string>
+    <string name="open_folder_error">फ़ोल्डर नहीं खोल सकते। कृपया अपना फाइल्स ऐप इस्तेमाल करें।</string>
 </resources>

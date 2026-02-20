@@ -69,4 +69,5 @@
     <string name="open_folder">Ordner öffnen</string>
     <string name="folder_not_accessible">Ordner nicht zugänglich. Bitte wählen Sie einen neuen Ordner.</string>
     <string name="select_folder_first">Bitte wählen Sie zuerst einen Speicherordner in den Einstellungen</string>
+    <string name="open_folder_error">Ordner kann nicht geöffnet werden. Bitte verwenden Sie Ihre Dateien-App.</string>
 </resources>

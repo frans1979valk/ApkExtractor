@@ -69,4 +69,5 @@
     <string name="open_folder">Map openen</string>
     <string name="folder_not_accessible">Map niet toegankelijk. Selecteer een nieuwe map.</string>
     <string name="select_folder_first">Selecteer eerst een opslagmap in Instellingen</string>
+    <string name="open_folder_error">Kan map niet openen. Gebruik uw Bestanden-app.</string>
 </resources>

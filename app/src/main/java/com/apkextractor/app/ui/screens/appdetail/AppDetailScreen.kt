@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apkextractor.app.R
+import kotlinx.coroutines.launch
 import com.apkextractor.app.ui.components.DrawableImage
 import com.apkextractor.app.util.FileUtils
 
@@ -69,12 +70,14 @@ fun AppDetailScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
 
     val exportSuccessMsg = stringResource(R.string.export_success)
     val exportErrorMsg = stringResource(R.string.export_error)
     val shareErrorMsg = stringResource(R.string.share_error)
     val saveSuccessMsg = stringResource(R.string.save_success)
     val selectFolderFirstMsg = stringResource(R.string.select_folder_first)
+    val openFolderErrorMsg = stringResource(R.string.open_folder_error)
 
     var showSystemAppDialog by remember { mutableStateOf(false) }
     var showUninstallDialog by remember { mutableStateOf(false) }
@@ -353,10 +356,8 @@ fun AppDetailScreen(
                                     context.startActivity(intent)
                                 } catch (_: Exception) {
                                     // Fallback: show message
-                                    androidx.compose.runtime.rememberCoroutineScope().launch {
-                                        snackbarHostState.showSnackbar(
-                                            "Open your Files app and navigate to the selected folder"
-                                        )
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(openFolderErrorMsg)
                                     }
                                 }
                             }

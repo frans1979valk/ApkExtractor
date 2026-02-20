@@ -69,4 +69,5 @@
     <string name="open_folder">Ouvrir le dossier</string>
     <string name="folder_not_accessible">Dossier non accessible. Veuillez sélectionner un nouveau dossier.</string>
     <string name="select_folder_first">Veuillez d0027abord sélectionner un dossier de sauvegarde dans les Paramètres</string>
+    <string name="open_folder_error">Impossible d0027ouvrir le dossier. Veuillez utiliser votre application Fichiers.</string>
 </resources>
