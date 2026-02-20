@@ -23,7 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.apkextractor.app.BuildConfig
 import com.apkextractor.app.R
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,6 +73,16 @@ fun AboutScreen(onBack: () -> Unit) {
             Text(
                 text = stringResource(R.string.about_version, versionName),
                 style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            val buildDate = remember {
+                val formatter = SimpleDateFormat("d MMM yyyy HH:mm", Locale.getDefault())
+                formatter.format(Date(BuildConfig.BUILD_TIME))
+            }
+            Text(
+                text = "Build: $buildDate",
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 

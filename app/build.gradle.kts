@@ -12,8 +12,8 @@ android {
         applicationId = "com.apkextractor.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
     }
 
     buildTypes {
@@ -38,6 +38,12 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    defaultConfig.apply {
+        val buildTime = System.currentTimeMillis()
+        buildConfigField("long", "BUILD_TIME", "${buildTime}L")
     }
 }
 
