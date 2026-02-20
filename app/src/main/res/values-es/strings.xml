@@ -58,4 +58,15 @@
     <string name="language_hindi">Hindi</string>
     <string name="language_spanish">Español</string>
     <string name="language_french">Francés</string>
+    <string name="default_save_folder">Carpeta de guardado predeterminada</string>
+    <string name="no_folder_selected">Ninguna carpeta seleccionada</string>
+    <string name="change_folder">Cambiar carpeta</string>
+    <string name="clear_folder">Borrar carpeta</string>
+    <string name="save_to_phone">Guardar en teléfono</string>
+    <string name="saving_to_phone">Guardando en teléfono…</string>
+    <string name="save_success">¡APK guardado en teléfono!</string>
+    <string name="save_error">No se pudo guardar el APK</string>
+    <string name="open_folder">Abrir carpeta</string>
+    <string name="folder_not_accessible">Carpeta no accesible. Por favor, selecciona una nueva carpeta.</string>
+    <string name="select_folder_first">Por favor, selecciona primero una carpeta de guardado en Ajustes</string>
 </resources>

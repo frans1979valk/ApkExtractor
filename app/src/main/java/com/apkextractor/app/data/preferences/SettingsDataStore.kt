@@ -20,6 +20,7 @@ class SettingsDataStore(private val context: Context) {
         private val SORT_ORDER = stringPreferencesKey("sort_order")
         private val DEV_MODE_ENABLED = booleanPreferencesKey("dev_mode_enabled")
         private val DEV_FORCED_LOCALE = stringPreferencesKey("dev_forced_locale")
+        private val DEFAULT_SAVE_FOLDER_URI = stringPreferencesKey("default_save_folder_uri")
     }
 
     val showSystemApps: Flow<Boolean> = context.dataStore.data.map { preferences ->
@@ -41,6 +42,10 @@ class SettingsDataStore(private val context: Context) {
 
     val devForcedLocale: Flow<String?> = context.dataStore.data.map { preferences ->
         preferences[DEV_FORCED_LOCALE]
+    }
+
+    val defaultSaveFolderUri: Flow<String?> = context.dataStore.data.map { preferences ->
+        preferences[DEFAULT_SAVE_FOLDER_URI]
     }
 
     suspend fun setShowSystemApps(show: Boolean) {
@@ -67,6 +72,16 @@ class SettingsDataStore(private val context: Context) {
                 preferences[DEV_FORCED_LOCALE] = locale
             } else {
                 preferences.remove(DEV_FORCED_LOCALE)
+            }
+        }
+    }
+
+    suspend fun setDefaultSaveFolderUri(uri: String?) {
+        context.dataStore.edit { preferences ->
+            if (uri != null) {
+                preferences[DEFAULT_SAVE_FOLDER_URI] = uri
+            } else {
+                preferences.remove(DEFAULT_SAVE_FOLDER_URI)
             }
         }
     }

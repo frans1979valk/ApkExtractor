@@ -1,5 +1,8 @@
 package com.apkextractor.app.ui.screens.settings
 
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -18,9 +22,13 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -43,6 +51,37 @@ fun SettingsScreen(
     val sortOrder by viewModel.sortOrder.collectAsStateWithLifecycle()
     val devModeEnabled by viewModel.devModeEnabled.collectAsStateWithLifecycle()
     val devForcedLocale by viewModel.devForcedLocale.collectAsStateWithLifecycle()
+    val folderName by viewModel.folderName.collectAsStateWithLifecycle()
+
+    var showClearFolderDialog by remember { mutableStateOf(false) }
+
+    val folderPicker = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree()
+    ) { uri ->
+        uri?.let { viewModel.setDefaultSaveFolderUri(it) }
+    }
+
+    // Clear folder confirmation dialog
+    if (showClearFolderDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearFolderDialog = false },
+            title = { Text(stringResource(R.string.clear_folder)) },
+            text = { Text("Are you sure you want to clear the default save folder?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.clearDefaultSaveFolder()
+                    showClearFolderDialog = false
+                }) {
+                    Text(stringResource(R.string.confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showClearFolderDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -97,6 +136,33 @@ fun SettingsScreen(
                 text = stringResource(R.string.sort_recently_updated),
                 selected = sortOrder == SortOrder.RECENTLY_UPDATED,
                 onClick = { viewModel.setSortOrder(SortOrder.RECENTLY_UPDATED) }
+            )
+
+            // Default save folder
+            HorizontalDivider()
+
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.default_save_folder)) },
+                supportingContent = {
+                    Text(folderName ?: stringResource(R.string.no_folder_selected))
+                },
+                trailingContent = {
+                    TextButton(onClick = {
+                        if (folderName != null) {
+                            showClearFolderDialog = true
+                        } else {
+                            folderPicker.launch(null)
+                        }
+                    }) {
+                        Text(
+                            if (folderName != null)
+                                stringResource(R.string.clear_folder)
+                            else
+                                stringResource(R.string.change_folder)
+                        )
+                    }
+                },
+                modifier = Modifier.clickable { folderPicker.launch(null) }
             )
 
             // Developer mode (only show in debug builds or if already enabled)

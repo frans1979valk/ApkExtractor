@@ -58,4 +58,15 @@
     <string name="language_hindi">Hindi</string>
     <string name="language_spanish">Spanish</string>
     <string name="language_french">French</string>
+    <string name="default_save_folder">Default save folder</string>
+    <string name="no_folder_selected">No folder selected</string>
+    <string name="change_folder">Change folder</string>
+    <string name="clear_folder">Clear folder</string>
+    <string name="save_to_phone">Save to phone</string>
+    <string name="saving_to_phone">Saving to phone…</string>
+    <string name="save_success">APK saved to phone!</string>
+    <string name="save_error">Failed to save APK</string>
+    <string name="open_folder">Open folder</string>
+    <string name="folder_not_accessible">Folder not accessible. Please select a new folder.</string>
+    <string name="select_folder_first">Please select a save folder in Settings first</string>
 </resources>

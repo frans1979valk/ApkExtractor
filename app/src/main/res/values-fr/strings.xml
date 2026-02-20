@@ -58,4 +58,15 @@
     <string name="language_hindi">Hindi</string>
     <string name="language_spanish">Espagnol</string>
     <string name="language_french">Français</string>
+    <string name="default_save_folder">Dossier de sauvegarde par défaut</string>
+    <string name="no_folder_selected">Aucun dossier sélectionné</string>
+    <string name="change_folder">Changer le dossier</string>
+    <string name="clear_folder">Effacer le dossier</string>
+    <string name="save_to_phone">Enregistrer sur le téléphone</string>
+    <string name="saving_to_phone">Enregistrement sur le téléphone…</string>
+    <string name="save_success">APK enregistré sur le téléphone !</string>
+    <string name="save_error">Impossible d0027enregistrer l0027APK</string>
+    <string name="open_folder">Ouvrir le dossier</string>
+    <string name="folder_not_accessible">Dossier non accessible. Veuillez sélectionner un nouveau dossier.</string>
+    <string name="select_folder_first">Veuillez d0027abord sélectionner un dossier de sauvegarde dans les Paramètres</string>
 </resources>

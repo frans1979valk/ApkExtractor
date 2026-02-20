@@ -58,4 +58,15 @@
     <string name="language_hindi">Hindi</string>
     <string name="language_spanish">Spanisch</string>
     <string name="language_french">Französisch</string>
+    <string name="default_save_folder">Standard-Speicherordner</string>
+    <string name="no_folder_selected">Kein Ordner ausgewählt</string>
+    <string name="change_folder">Ordner ändern</string>
+    <string name="clear_folder">Ordner löschen</string>
+    <string name="save_to_phone">Auf Telefon speichern</string>
+    <string name="saving_to_phone">Auf Telefon speichern…</string>
+    <string name="save_success">APK auf Telefon gespeichert!</string>
+    <string name="save_error">APK konnte nicht gespeichert werden</string>
+    <string name="open_folder">Ordner öffnen</string>
+    <string name="folder_not_accessible">Ordner nicht zugänglich. Bitte wählen Sie einen neuen Ordner.</string>
+    <string name="select_folder_first">Bitte wählen Sie zuerst einen Speicherordner in den Einstellungen</string>
 </resources>

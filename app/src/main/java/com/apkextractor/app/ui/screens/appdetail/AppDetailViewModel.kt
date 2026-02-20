@@ -7,12 +7,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.apkextractor.app.data.model.AppInfo
+import com.apkextractor.app.data.preferences.SettingsDataStore
 import com.apkextractor.app.data.repository.AppRepository
+import com.apkextractor.app.util.DocumentFileHelper
 import com.apkextractor.app.util.FileUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
@@ -24,6 +27,7 @@ class AppDetailViewModel(
 
     private val packageName: String = savedStateHandle.get<String>("packageName") ?: ""
     private val repository = AppRepository(application)
+    private val settingsDataStore = SettingsDataStore(application)
 
     private val _appInfo = MutableStateFlow<AppInfo?>(null)
     val appInfo: StateFlow<AppInfo?> = _appInfo.asStateFlow()
@@ -86,6 +90,53 @@ class AppDetailViewModel(
         }
     }
 
+    fun saveToPhone(folderUri: Uri? = null) {
+        val app = _appInfo.value ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = UiState.SavingToPhone
+            try {
+                val context = getApplication<Application>()
+
+                // Get folder URI from parameter or settings
+                val targetFolderUri = folderUri ?: run {
+                    val savedUri = settingsDataStore.defaultSaveFolderUri.first()
+                    savedUri?.let { Uri.parse(it) }
+                } ?: run {
+                    _uiState.value = UiState.NoFolderSelected
+                    return@launch
+                }
+
+                // Check folder accessibility
+                if (!DocumentFileHelper.isFolderAccessible(context, targetFolderUri)) {
+                    _uiState.value = UiState.Error("Folder not accessible")
+                    return@launch
+                }
+
+                val fileName = FileUtils.sanitizeFileName(app.name, app.versionName, app.packageName)
+
+                val result = DocumentFileHelper.saveApkToFolder(
+                    context = context,
+                    folderUri = targetFolderUri,
+                    sourceApkPath = app.sourceDir,
+                    filename = fileName
+                ) { progress ->
+                    // Could emit progress updates here if needed
+                }
+
+                result.fold(
+                    onSuccess = { savedUri ->
+                        _uiState.value = UiState.SaveSuccess(targetFolderUri, savedUri)
+                    },
+                    onFailure = { error ->
+                        _uiState.value = UiState.Error(error.message ?: "Save failed")
+                    }
+                )
+            } catch (e: Exception) {
+                _uiState.value = UiState.Error(e.message ?: "Failed to save")
+            }
+        }
+    }
+
     fun resetUiState() {
         _uiState.value = UiState.Idle
     }
@@ -100,6 +151,9 @@ class AppDetailViewModel(
         data object Exporting : UiState
         data object ExportSuccess : UiState
         data class ShareReady(val uri: Uri) : UiState
+        data object SavingToPhone : UiState
+        data class SaveSuccess(val folderUri: Uri, val fileUri: Uri) : UiState
+        data object NoFolderSelected : UiState
         data class Error(val message: String) : UiState
     }
 }

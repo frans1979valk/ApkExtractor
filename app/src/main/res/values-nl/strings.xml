@@ -58,4 +58,15 @@
     <string name="language_hindi">Hindi</string>
     <string name="language_spanish">Spaans</string>
     <string name="language_french">Frans</string>
+    <string name="default_save_folder">Standaard opslagmap</string>
+    <string name="no_folder_selected">Geen map geselecteerd</string>
+    <string name="change_folder">Map wijzigen</string>
+    <string name="clear_folder">Map wissen</string>
+    <string name="save_to_phone">Opslaan op telefoon</string>
+    <string name="saving_to_phone">Opslaan op telefoon…</string>
+    <string name="save_success">APK opgeslagen op telefoon!</string>
+    <string name="save_error">Kan APK niet opslaan</string>
+    <string name="open_folder">Map openen</string>
+    <string name="folder_not_accessible">Map niet toegankelijk. Selecteer een nieuwe map.</string>
+    <string name="select_folder_first">Selecteer eerst een opslagmap in Instellingen</string>
 </resources>

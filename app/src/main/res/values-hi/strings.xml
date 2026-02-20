@@ -58,4 +58,15 @@
     <string name="language_hindi">हिंदी</string>
     <string name="language_spanish">स्पेनिश</string>
     <string name="language_french">फ्रेंच</string>
+    <string name="default_save_folder">डिफ़ॉल्ट सेव फ़ोल्डर</string>
+    <string name="no_folder_selected">कोई फ़ोल्डर चयनित नहीं</string>
+    <string name="change_folder">फ़ोल्डर बदलें</string>
+    <string name="clear_folder">फ़ोल्डर साफ़ करें</string>
+    <string name="save_to_phone">फ़ोन में सेव करें</string>
+    <string name="saving_to_phone">फ़ोन में सेव हो रहा है…</string>
+    <string name="save_success">APK फ़ोन में सेव हो गया!</string>
+    <string name="save_error">APK सेव नहीं हो सका</string>
+    <string name="open_folder">फ़ोल्डर खोलें</string>
+    <string name="folder_not_accessible">फ़ोल्डर एक्सेस नहीं हो सकता। कृपया नया फ़ोल्डर चुनें।</string>
+    <string name="select_folder_first">कृपया पहले सेटिंग्स में एक सेव फ़ोल्डर चुनें</string>
 </resources>

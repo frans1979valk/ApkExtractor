@@ -5,6 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import com.apkextractor.app.util.DocumentFileHelper
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -72,14 +73,23 @@ fun AppDetailScreen(
     val exportSuccessMsg = stringResource(R.string.export_success)
     val exportErrorMsg = stringResource(R.string.export_error)
     val shareErrorMsg = stringResource(R.string.share_error)
+    val saveSuccessMsg = stringResource(R.string.save_success)
+    val selectFolderFirstMsg = stringResource(R.string.select_folder_first)
 
     var showSystemAppDialog by remember { mutableStateOf(false) }
     var showUninstallDialog by remember { mutableStateOf(false) }
+    var savedFolderUri by remember { mutableStateOf<Uri?>(null) }
 
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/vnd.android.package-archive")
     ) { uri ->
         uri?.let { viewModel.exportApk(it) }
+    }
+
+    val folderPickerForSave = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree()
+    ) { uri ->
+        uri?.let { viewModel.saveToPhone(it) }
     }
 
     LaunchedEffect(uiState) {
@@ -96,6 +106,17 @@ fun AppDetailScreen(
                 }
                 context.startActivity(Intent.createChooser(shareIntent, null))
                 viewModel.resetUiState()
+            }
+            is AppDetailViewModel.UiState.SaveSuccess -> {
+                savedFolderUri = state.folderUri
+                snackbarHostState.showSnackbar(saveSuccessMsg)
+                viewModel.resetUiState()
+            }
+            is AppDetailViewModel.UiState.NoFolderSelected -> {
+                snackbarHostState.showSnackbar(selectFolderFirstMsg)
+                viewModel.resetUiState()
+                // Optionally open folder picker
+                folderPickerForSave.launch(null)
             }
             is AppDetailViewModel.UiState.Error -> {
                 snackbarHostState.showSnackbar(state.message)
@@ -291,6 +312,63 @@ fun AppDetailScreen(
                     Icon(Icons.Default.Share, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(stringResource(R.string.share_apk))
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Save to phone button
+                OutlinedButton(
+                    onClick = { viewModel.saveToPhone() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    enabled = uiState is AppDetailViewModel.UiState.Idle
+                ) {
+                    if (uiState is AppDetailViewModel.UiState.SavingToPhone) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    Icon(Icons.Default.SaveAlt, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        if (uiState is AppDetailViewModel.UiState.SavingToPhone)
+                            stringResource(R.string.saving_to_phone)
+                        else
+                            stringResource(R.string.save_to_phone)
+                    )
+                }
+
+                // Open folder button (shown after successful save)
+                if (savedFolderUri != null) {
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedButton(
+                        onClick = {
+                            val intent = DocumentFileHelper.createOpenFolderIntent(savedFolderUri!!)
+                            if (intent != null) {
+                                try {
+                                    context.startActivity(intent)
+                                } catch (_: Exception) {
+                                    // Fallback: show message
+                                    androidx.compose.runtime.rememberCoroutineScope().launch {
+                                        snackbarHostState.showSnackbar(
+                                            "Open your Files app and navigate to the selected folder"
+                                        )
+                                    }
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp)
+                    ) {
+                        Icon(Icons.Default.Share, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.open_folder))
+                    }
                 }
 
                 // Remove button — only for user apps
