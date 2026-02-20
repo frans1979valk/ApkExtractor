@@ -114,8 +114,10 @@ fun AppDetailScreen(
             confirmButton = {
                 TextButton(onClick = {
                     showSystemAppDialog = false
+                    val pkg = appInfo?.packageName ?: return@TextButton
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                        data = Uri.parse("package:${appInfo?.packageName}")
+                        data = Uri.parse("package:$pkg")
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
                     context.startActivity(intent)
                 }) {
@@ -131,20 +133,31 @@ fun AppDetailScreen(
     }
 
     // Uninstall confirmation dialog
-    if (showUninstallDialog) {
+    val currentApp = appInfo
+    if (showUninstallDialog && currentApp != null) {
         AlertDialog(
             onDismissRequest = { showUninstallDialog = false },
             title = { Text(stringResource(R.string.confirm_uninstall_title)) },
             text = {
-                Text(stringResource(R.string.confirm_uninstall_message, appInfo?.name ?: ""))
+                Text(stringResource(R.string.confirm_uninstall_message, currentApp.name))
             },
             confirmButton = {
                 TextButton(onClick = {
                     showUninstallDialog = false
                     val intent = Intent(Intent.ACTION_DELETE).apply {
-                        data = Uri.parse("package:${appInfo?.packageName}")
+                        data = Uri.parse("package:${currentApp.packageName}")
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
-                    context.startActivity(intent)
+                    try {
+                        context.startActivity(intent)
+                    } catch (_: Exception) {
+                        // Fallback: open system app info
+                        val fallback = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                            data = Uri.parse("package:${currentApp.packageName}")
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(fallback)
+                    }
                 }) {
                     Text(
                         stringResource(R.string.confirm),
