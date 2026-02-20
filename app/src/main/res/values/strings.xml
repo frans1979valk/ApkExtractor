@@ -47,4 +47,15 @@
     <string name="confirm_uninstall_title">Remove app?</string>
     <string name="confirm_uninstall_message">Do you want to remove %s from your device? This will open the system uninstaller.</string>
     <string name="confirm">Remove</string>
+    <string name="developer_mode">Developer mode</string>
+    <string name="language_dev">Language (Dev)</string>
+    <string name="use_system_language">Use system language</string>
+    <string name="dev_mode_enabled">Developer mode enabled</string>
+    <string name="dev_mode_tap_hint">Tap version %d more times to enable developer mode</string>
+    <string name="language_english">English</string>
+    <string name="language_dutch">Dutch</string>
+    <string name="language_german">German</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_spanish">Spanish</string>
+    <string name="language_french">French</string>
 </resources>

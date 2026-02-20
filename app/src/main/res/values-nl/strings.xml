@@ -47,4 +47,15 @@
     <string name="confirm_uninstall_title">App verwijderen?</string>
     <string name="confirm_uninstall_message">Wil je %s van je apparaat verwijderen? Dit opent het systeemverwijderprogramma.</string>
     <string name="confirm">Verwijderen</string>
+    <string name="developer_mode">Ontwikkelaarsmodus</string>
+    <string name="language_dev">Taal (Dev)</string>
+    <string name="use_system_language">Systeemtaal gebruiken</string>
+    <string name="dev_mode_enabled">Ontwikkelaarsmodus ingeschakeld</string>
+    <string name="dev_mode_tap_hint">Tik nog %d keer op versie om ontwikkelaarsmodus in te schakelen</string>
+    <string name="language_english">Engels</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_german">Duits</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_spanish">Spaans</string>
+    <string name="language_french">Frans</string>
 </resources>

@@ -47,4 +47,15 @@
     <string name="confirm_uninstall_title">App entfernen?</string>
     <string name="confirm_uninstall_message">M\u00f6chtest du %s von deinem Ger\u00e4t entfernen? Dies \u00f6ffnet das Systemdeinstallationsprogramm.</string>
     <string name="confirm">Entfernen</string>
+    <string name="developer_mode">Entwicklermodus</string>
+    <string name="language_dev">Sprache (Dev)</string>
+    <string name="use_system_language">Systemsprache verwenden</string>
+    <string name="dev_mode_enabled">Entwicklermodus aktiviert</string>
+    <string name="dev_mode_tap_hint">Tippe noch %d Mal auf die Version, um den Entwicklermodus zu aktivieren</string>
+    <string name="language_english">Englisch</string>
+    <string name="language_dutch">Niederländisch</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_spanish">Spanisch</string>
+    <string name="language_french">Französisch</string>
 </resources>

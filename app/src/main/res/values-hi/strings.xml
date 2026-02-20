@@ -47,4 +47,15 @@
     <string name="confirm_uninstall_title">\u0910\u092a \u0939\u091f\u093e\u090f\u0902?</string>
     <string name="confirm_uninstall_message">\u0915\u094d\u092f\u093e \u0906\u092a %s \u0915\u094b \u0905\u092a\u0928\u0947 \u0921\u093f\u0935\u093e\u0907\u0938 \u0938\u0947 \u0939\u091f\u093e\u0928\u093e \u091a\u093e\u0939\u0924\u0947 \u0939\u0948\u0902? \u092f\u0939 \u0938\u093f\u0938\u094d\u091f\u092e \u0905\u0928\u0907\u0902\u0938\u094d\u091f\u0949\u0932\u0930 \u0916\u094b\u0932\u0947\u0917\u093e\u0964</string>
     <string name="confirm">\u0939\u091f\u093e\u090f\u0902</string>
+    <string name="developer_mode">डेवलपर मोड</string>
+    <string name="language_dev">भाषा (Dev)</string>
+    <string name="use_system_language">सिस्टम भाषा उपयोग करें</string>
+    <string name="dev_mode_enabled">डेवलपर मोड सक्षम</string>
+    <string name="dev_mode_tap_hint">डेवलपर मोड सक्षम करने के लिए संस्करण पर %d बार और टैप करें</string>
+    <string name="language_english">अंग्रेज़ी</string>
+    <string name="language_dutch">डच</string>
+    <string name="language_german">जर्मन</string>
+    <string name="language_hindi">हिंदी</string>
+    <string name="language_spanish">स्पेनिश</string>
+    <string name="language_french">फ्रेंच</string>
 </resources>

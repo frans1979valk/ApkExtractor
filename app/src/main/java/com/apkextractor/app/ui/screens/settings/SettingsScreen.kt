@@ -28,8 +28,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.apkextractor.app.BuildConfig
 import com.apkextractor.app.R
 import com.apkextractor.app.data.model.SortOrder
+import com.apkextractor.app.util.LocaleManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +41,8 @@ fun SettingsScreen(
 ) {
     val showSystemApps by viewModel.showSystemApps.collectAsStateWithLifecycle()
     val sortOrder by viewModel.sortOrder.collectAsStateWithLifecycle()
+    val devModeEnabled by viewModel.devModeEnabled.collectAsStateWithLifecycle()
+    val devForcedLocale by viewModel.devForcedLocale.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -94,6 +98,56 @@ fun SettingsScreen(
                 selected = sortOrder == SortOrder.RECENTLY_UPDATED,
                 onClick = { viewModel.setSortOrder(SortOrder.RECENTLY_UPDATED) }
             )
+
+            // Developer mode (only show in debug builds or if already enabled)
+            if (BuildConfig.DEBUG || devModeEnabled) {
+                HorizontalDivider()
+
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.developer_mode)) },
+                    trailingContent = {
+                        Switch(
+                            checked = devModeEnabled,
+                            onCheckedChange = { viewModel.setDevModeEnabled(it) }
+                        )
+                    },
+                    modifier = Modifier.clickable { viewModel.setDevModeEnabled(!devModeEnabled) }
+                )
+            }
+
+            // Language picker (only when dev mode is enabled)
+            if (devModeEnabled) {
+                HorizontalDivider()
+
+                ListItem(
+                    headlineContent = {
+                        Text(
+                            stringResource(R.string.language_dev),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                )
+
+                LocaleManager.getAvailableLocales().forEach { localeOption ->
+                    val nameResId = when (localeOption.nameResKey) {
+                        "use_system_language" -> R.string.use_system_language
+                        "language_english" -> R.string.language_english
+                        "language_dutch" -> R.string.language_dutch
+                        "language_german" -> R.string.language_german
+                        "language_hindi" -> R.string.language_hindi
+                        "language_spanish" -> R.string.language_spanish
+                        "language_french" -> R.string.language_french
+                        else -> R.string.use_system_language
+                    }
+
+                    RadioButtonItem(
+                        text = stringResource(nameResId),
+                        selected = devForcedLocale == localeOption.code,
+                        onClick = { viewModel.setDevForcedLocale(localeOption.code) }
+                    )
+                }
+            }
         }
     }
 }
